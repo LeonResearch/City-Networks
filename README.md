@@ -10,3 +10,27 @@ City-Networks of long-range dependency
 <div align="center">
   <img src="Figures/label_visual_map_huangpu_and_pasadena.jpg" alt="labels" style="width: 99%; height: 99%">
 </div>
+
+
+## Installation
+### 1. Create a virtual environment for GraphComBO
+```
+conda create -n citynetworks python=3.10
+conda activate citynetworks
+```
+
+### 2. Install Packages
+```
+pip install networkx
+pip install torch_geometric
+pip install osmnx
+```
+
+## Run
+Use the following line in a bash shell with pre-specified queries in `places.py`,
+```bash
+python generate_network.py --place paris
+python generate_network.py --place shanghai
+python generate_network.py --place la
+python generate_network.py --place london
+```
