@@ -76,7 +76,7 @@ spain = [
 ]
 
 def generate_places(place_name):
-    data_dir = f'./road_data_2025/{place_name}/'
+    data_dir = f'./data/{place_name}/'
     #### USA west coast & some mountain states
     if place_name == 'usa_west':
         places = [
