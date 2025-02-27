@@ -27,7 +27,7 @@ pip install osmnx
 ```
 
 ## Run
-Use the following line in a bash shell with pre-specified queries in `places.py`,
+Use the commands in a bash shell to generate city networks with pre-specified queries in `places.py`,
 ```bash
 python generate_network.py --place paris
 python generate_network.py --place shanghai
