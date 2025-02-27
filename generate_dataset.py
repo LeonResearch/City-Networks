@@ -1,16 +1,11 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-import numpy as np
-import pandas as pd
-import networkx as nx
-import osmnx as ox
 import torch
-from tqdm import tqdm
+import numpy as np
 from time import time
 from torch_geometric.data import Data
 from sklearn.preprocessing import OneHotEncoder
-import matplotlib.pyplot as plt
 
 from utils import (
     compute_k_hop_homophily, 
@@ -124,27 +119,3 @@ def feature_engineering(args, data_dir, node_df, edge_df, K, n_bins, top_k_dict)
     # Compute K-hop homophily of the network
     homophily_score = compute_k_hop_homophily(node_labels, edge_indices, K=1)
     print(f"The node homophily score is: {homophily_score:.2f}")
-
-if __name__ == "__main__":
-    # Load the saved node and edge features
-    #data_dir = './road_data/oxford/'
-    #data_dir = './road_data/usa_west/'
-    data_dir = './road_data/uk/'
-    #data_dir = './road_data/usa_east/'
-
-    savepath_node_csv = data_dir + "nodes.csv"
-    savepath_edge_csv = data_dir + "edges.csv"
-
-    start_time = time()
-    print(f'loading the node features and edge features ...')
-    node_df = pd.read_csv(savepath_node_csv, engine="pyarrow")
-    edge_df = pd.read_csv(savepath_edge_csv, engine="pyarrow")
-    print(f'loading finished at {(time() - start_time):.2f}s')
-
-    print('node features:', node_df.keys())
-    print("shape of node_df", node_df.shape)
-
-    print('edge features:', edge_df.keys())
-    print("shape of edge_df", edge_df.shape)
-
-    feature_engineering(data_dir, node_df, edge_df)

@@ -1,13 +1,10 @@
 import os
 import torch
 import argparse
-import numpy as np
-import pandas as pd
 import networkx as nx
 import osmnx as ox
 import geopandas as gpd
 import matplotlib.pyplot as plt
-from tqdm import tqdm
 from time import time
 from places import generate_places
 from generate_dataset import feature_engineering
@@ -15,59 +12,21 @@ from generate_dataset import feature_engineering
 
 # %%%%%% Setting up configurations %%%%%%
 parser = argparse.ArgumentParser()
-parser.add_argument('--place', type=str, default=None)
+parser.add_argument('--place', type=str, default='oxford')
 parser.add_argument('--type', type=str, default='all')
 parser.add_argument('--K_hop_estimation', type=int, default=16)
 parser.add_argument('--n_bins_label', type=int, default=10)
 parser.add_argument('--retain_all', type=bool, default=False)
-parser.add_argument('--testing', type=bool, default=False)
-parser.add_argument('--save_original_csv', type=bool, default=False)
 parser.add_argument('--augment_node_attr', type=bool, default=True)
-
+parser.add_argument('--plot', type=bool, default=True)
 args = parser.parse_args()
 print(args)
+
 # 1. Load the Graph from OSMnX into a networkx Graph
 #### 1.1 First specify all the configurations in this file
-
-#place_name = 'usa_main'
-#place_name = 'usa_east_central'
-#place_name = 'europe_west'
-#place_name = 'uk'
-#place_name = 'england'
-#place_name = 'london'
-place_name = 'paris'
-#place_name = 'la'
-#place_name = 'shanghai'
-
-
-if args.place is not None:
-    place_name = args.place 
-
+place_name = args.place 
 data_dir, places = generate_places(place_name)
-
-if args.testing:
-    place_name = 'testing'
-    data_dir = './road_data/testing/'
-    places = [
-        #"London, England, UK"
-        #"Utrecht, The Netherlands",
-        #"New York State, USA",
-        "Paris, France",
-    ]
-
-plot = True
-save_and_load_G = False # Not recommended since saving the DataFrame takes a long time
-save_type = 'csv'
-
-savepath_G = data_dir + "G.graphml"
 os.makedirs(data_dir, exist_ok=True)
-
-if save_type == 'csv':
-    savepath_node = data_dir + "nodes.csv"
-    savepath_edge = data_dir + "edges.csv"
-elif save_type == 'h5':
-    savepath_node = data_dir + "nodes.h5"
-    savepath_edge = data_dir + "edges.h5"
 
 start_time = time()
 print(f"%%%%%% creating road network for {place_name} ... %%%%%%")
@@ -80,19 +39,9 @@ print(f"%%%%%% Gathering landuse info for {place_name} ... %%%%%%")
 tags = {"landuse": True}  # Only landuse tags
 land_use = ox.geometries_from_place(places, tags)
 print(f'finished at {(time() - start_time):.2f}s!')
-
-if save_and_load_G:
-    start_time = time()
-    print(f'now saving the network ...')
-    ox.save_graphml(G, savepath_G)
-    print(f'saving finished at {(time() - start_time):.2f}s')
-    print(f'loading the network ...')
-    G = ox.load_graphml(savepath_G)
-    print(f'loading finished at {(time() - start_time):.2f}s')
-
 print(f"# Nodes: {G.number_of_nodes()}, # Edges: {G.number_of_edges()}")
 
-if plot:
+if args.plot:
     start_time = time()
     fig, ax = plt.subplots(1,1, figsize=(20, 20), gridspec_kw={'width_ratios': [1]})
     ox.plot_graph(G, node_size=0, edge_linewidth=1, edge_color='black', edge_alpha=0.5, show=False, ax=ax)
@@ -171,30 +120,18 @@ print(f"Transitivity: {transitivity:.4f}")
 print(f"Diameter Estimate Directed: {diameter_est_directed}")
 # %%%%%% End of Network Statistics %%%%%%   
 
-## Save the node and edge dataframes
-if args.save_original_csv:
-    start_time = time()
-    print(f'Saving the node features and edge features as csv ...')
-    if save_type == 'csv':
-        nodes.to_csv(savepath_node)
-        edges.to_csv(savepath_edge)
-    elif save_type == 'h5':
-        nodes.to_hdf(savepath_node, key='stage', mode='w')
-        edges.to_hdf(savepath_edge, key='stage', mode='w')
-    print(f'saving finished at {(time() - start_time):.2f}s')
-else:
-    nodes = nodes.reset_index()
-    edges = edges.reset_index()
+# Feature & Label Engineering
+nodes = nodes.reset_index()
+edges = edges.reset_index()
 
-    K=args.K_hop_estimation
-    n_bins = args.n_bins_label
-    top_k_dict = {
-        "oneway": 4,
-        "lanes": 8, 
-        "reversed": 4,
-        "highway": 8,
-        "landuse":8,
-    }
+K=args.K_hop_estimation
+n_bins = args.n_bins_label
+top_k_dict = {
+    "oneway": 4,
+    "lanes": 8, 
+    "reversed": 4,
+    "highway": 8,
+    "landuse":8,
+}
 
-    feature_engineering(args, data_dir, nodes, edges, K, n_bins, top_k_dict)
-
+feature_engineering(args, data_dir, nodes, edges, K, n_bins, top_k_dict)
