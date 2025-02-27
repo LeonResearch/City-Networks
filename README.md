@@ -24,6 +24,7 @@ conda activate citynetworks
 pip install networkx
 pip install torch_geometric
 pip install osmnx
+pip install publib
 ```
 
 ## Run
