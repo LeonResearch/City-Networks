@@ -1,10 +1,13 @@
 import os
 import torch
 import argparse
+import numpy as np
+import pandas as pd
 import networkx as nx
 import osmnx as ox
 import geopandas as gpd
 import matplotlib.pyplot as plt
+from tqdm import tqdm
 from time import time
 from places import generate_places
 from generate_dataset import feature_engineering
@@ -12,20 +15,23 @@ from generate_dataset import feature_engineering
 
 # %%%%%% Setting up configurations %%%%%%
 parser = argparse.ArgumentParser()
-parser.add_argument('--place', type=str, default='oxford')
+parser.add_argument('--place', type=str, default='paris')
 parser.add_argument('--type', type=str, default='all')
-parser.add_argument('--K_hop_estimation', type=int, default=16)
+parser.add_argument('--K_list', type=list[int], default=[16])
 parser.add_argument('--n_bins_label', type=int, default=10)
 parser.add_argument('--retain_all', type=bool, default=False)
 parser.add_argument('--augment_node_attr', type=bool, default=True)
-parser.add_argument('--plot', type=bool, default=True)
+
 args = parser.parse_args()
 print(args)
-
 # 1. Load the Graph from OSMnX into a networkx Graph
 #### 1.1 First specify all the configurations in this file
+#['usa_main','usa_east_central','europe_west','uk','england','london','la','shanghai']
 place_name = args.place 
-data_dir, places = generate_places(place_name)
+data_dir = f'./data/{place_name}/'
+places = generate_places(place_name)
+
+plot = True
 os.makedirs(data_dir, exist_ok=True)
 
 start_time = time()
@@ -39,9 +45,8 @@ print(f"%%%%%% Gathering landuse info for {place_name} ... %%%%%%")
 tags = {"landuse": True}  # Only landuse tags
 land_use = ox.geometries_from_place(places, tags)
 print(f'finished at {(time() - start_time):.2f}s!')
-print(f"# Nodes: {G.number_of_nodes()}, # Edges: {G.number_of_edges()}")
 
-if args.plot:
+if plot:
     start_time = time()
     fig, ax = plt.subplots(1,1, figsize=(20, 20), gridspec_kw={'width_ratios': [1]})
     ox.plot_graph(G, node_size=0, edge_linewidth=1, edge_color='black', edge_alpha=0.5, show=False, ax=ax)
@@ -90,7 +95,9 @@ for name in categorical_edge_feature_list:
         pass
 
 # %%%%%% Record Network Statistics %%%%%%
-G_ = nx.DiGraph(G)
+G_ = nx.Graph(G)
+
+print(f"# Nodes: {G_.number_of_nodes()}, # Edges: {G_.number_of_edges()}")
 
 node_degrees = torch.tensor([i[-1] for i in list(G_.degree())]).to(float)
 avg_degree = node_degrees.mean()
@@ -120,11 +127,11 @@ print(f"Transitivity: {transitivity:.4f}")
 print(f"Diameter Estimate Directed: {diameter_est_directed}")
 # %%%%%% End of Network Statistics %%%%%%   
 
-# Feature & Label Engineering
+# Feature Engineering
 nodes = nodes.reset_index()
 edges = edges.reset_index()
 
-K=args.K_hop_estimation
+K_list=args.K_list
 n_bins = args.n_bins_label
 top_k_dict = {
     "oneway": 4,
@@ -134,4 +141,5 @@ top_k_dict = {
     "landuse":8,
 }
 
-feature_engineering(args, data_dir, nodes, edges, K, n_bins, top_k_dict)
+feature_engineering(args, data_dir, nodes, edges, K_list, n_bins, top_k_dict)
+

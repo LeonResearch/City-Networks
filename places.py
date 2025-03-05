@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
 utrecht = [
     "Amersfoort, Utrecht, The Netherlands",
     "Baarn, Utrecht, The Netherlands",
@@ -76,7 +73,6 @@ spain = [
 ]
 
 def generate_places(place_name):
-    data_dir = f'./data/{place_name}/'
     #### USA west coast & some mountain states
     if place_name == 'usa_west':
         places = [
@@ -343,4 +339,4 @@ def generate_places(place_name):
         places = [
             "Huangpu, Shanghai, China"
         ]
-    return data_dir, places
+    return places

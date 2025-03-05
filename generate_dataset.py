@@ -1,13 +1,11 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-import torch
 import numpy as np
+import torch
 from time import time
-from torch_geometric.data import Data
+from torch_geometric.utils import to_undirected, remove_self_loops
 from sklearn.preprocessing import OneHotEncoder
 
 from utils import (
+    rand_train_test_idx,
     compute_k_hop_homophily, 
     create_partition_labels,
     compute_k_hop_eccentricity,
@@ -15,7 +13,7 @@ from utils import (
 
 
 # Feature Engineering
-def feature_engineering(args, data_dir, node_df, edge_df, K, n_bins, top_k_dict):
+def feature_engineering(args, data_dir, node_df, edge_df, K_list, n_bins, top_k_dict):
     node_numerical_features = ["x", "y", "street_count"]
     node_categorical_features = ["landuse"]
     edge_numerical_features = ["length", "speed_kph"]
@@ -79,43 +77,59 @@ def feature_engineering(args, data_dir, node_df, edge_df, K, n_bins, top_k_dict)
     )
     edge_indices = torch.tensor(edge_df[['u_relabeled', 'v_relabeled']].values, dtype=torch.long).T
 
-    # Create node labels by computing its K-hop eccentricity, 
-    # i.e. the longest shortest path to other nodes within K hops 
-    eccentricities, _ = compute_k_hop_eccentricity(
-        edge_index=edge_indices, 
-        edge_weight=edge_features[:,0], # use road length as edge weight
-        k=K,
-        sample_rate=1, # compute eccentricity for all nodes by setting this to 1
-    )
-    node_labels = create_partition_labels(eccentricities, n_bins)
-    # Create the PyTorch Geometric Data object
-    data = Data(x=node_features, y=node_labels, edge_index=edge_indices, edge_attr=edge_features)
-    print(node_labels.shape, node_features.shape, edge_features.shape, edge_indices.shape)
-    print(data)
+    edge_indices, edge_features = to_undirected(edge_indices, edge_features, reduce="mean")
+    edge_indices, edge_features = remove_self_loops(edge_indices, edge_features)
 
-
-    # Save the Data object
+    # Save the node and edge features
     torch.save(node_features, f'{data_dir}node_features.pt')
-    torch.save(node_labels, f'{data_dir}{n_bins}-chunk_node_labels.pt')
-    torch.save(eccentricities, f'{data_dir}{K}-hop_eccentricities.pt')
     torch.save(edge_indices, f'{data_dir}edge_indices.pt')
     torch.save(edge_features, f'{data_dir}edge_features.pt')
 
+    train_mask, valid_mask, test_mask = rand_train_test_idx(
+        node_features, 
+        train_prop=0.1, 
+        valid_prop=0.1, 
+        seed=0
+    )
+
+    torch.save(train_mask, f"{data_dir}train_mask.pt")
+    torch.save(valid_mask, f"{data_dir}valid_mask.pt")
+    torch.save(test_mask, f"{data_dir}test_mask.pt")
+
     if args.augment_node_attr:
         # Create empty tensor for sum and count
-        node_edge_attr_sum = torch.zeros(data.x.shape[0], data.edge_attr.shape[1])                          
-        node_edge_count = torch.zeros(data.x.shape[0], 1)
+        node_edge_attr_sum = torch.zeros(node_features.shape[0], edge_features.shape[1])                          
+        node_edge_count = torch.zeros(node_features.shape[0], 1)
         # sum the corresponding edge attr for each node
-        node_edge_attr_sum.index_add_(0, data.edge_index[1], data.edge_attr)
-        node_edge_count.index_add_(0, data.edge_index[1], torch.ones_like(data.edge_index[1], dtype=torch.float).view(-1, 1))
+        node_edge_attr_sum.index_add_(0, edge_indices[1], edge_features)
+        node_edge_count.index_add_(
+            0,
+            edge_indices[1],
+            torch.ones_like(edge_indices[1], dtype=torch.float).view(-1, 1)
+        )
         # Prevent division by zero for nodes with no neighbors if the graph is not connected
         node_edge_count[node_edge_count == 0] = 1.0
         # Compute the mean of the neighbouring edge attributes for each node
         node_edge_attr_mean = node_edge_attr_sum / node_edge_count
         # Concatenate the original node features with the averaged edge attributes
-        x_augmented = torch.cat([data.x, node_edge_attr_mean], dim=1)
+        x_augmented = torch.cat([node_features, node_edge_attr_mean], dim=1)
         torch.save(x_augmented, f'{data_dir}node_features_augmented.pt')
 
-    # Compute K-hop homophily of the network
-    homophily_score = compute_k_hop_homophily(node_labels, edge_indices, K=1)
-    print(f"The node homophily score is: {homophily_score:.2f}")
+    # Create node labels by computing its K-hop eccentricity, 
+    # i.e. the longest shortest path to other nodes within K hops 
+    for K in K_list:
+        start_time = time()
+        eccentricities, _ = compute_k_hop_eccentricity(
+            edge_index=edge_indices, 
+            edge_weight=edge_features[:,0], # use road length as edge weight
+            k=K,
+        )
+        node_labels = create_partition_labels(eccentricities, n_bins)
+        print(f"eccentricity @ {K}-hop finished in {(time()-start_time):.1f}s")
+        torch.save(node_labels, f'{data_dir}{n_bins}-chunk_{K}-hop_node_labels.pt')
+        torch.save(eccentricities, f'{data_dir}{K}-hop_eccentricities.pt')
+        print(node_labels.shape, node_features.shape, edge_features.shape, edge_indices.shape)
+
+        # Compute K-hop homophily of the network
+        homophily_score = compute_k_hop_homophily(node_labels, edge_indices, K=1)
+        print(f"The node homophily score under {K}-hop eccentricty label is: {homophily_score:.2f}")

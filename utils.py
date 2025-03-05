@@ -1,10 +1,25 @@
 import torch
 import networkx as nx
+import numpy as np
 from tqdm import tqdm
 from multiprocessing import Pool, cpu_count
 from functools import partial
 from torch_geometric.data import Data
 from torch_geometric.utils import k_hop_subgraph
+
+
+def rand_train_test_idx(label, train_prop=.1, valid_prop=.1, seed=0):
+    """ randomly splits label into train/valid/test splits """
+    n = label.shape[0]
+    train_num = int(n * train_prop)
+    valid_num = int(n * valid_prop)
+
+    perm = torch.as_tensor(np.random.RandomState(seed=seed).permutation(n))
+    train_indices = perm[:train_num]
+    val_indices = perm[train_num:train_num + valid_num]
+    test_indices = perm[train_num + valid_num:]
+
+    return train_indices, val_indices, test_indices
 
 
 # %%%%%% Compute the Homophily Score %%%%%%
