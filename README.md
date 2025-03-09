@@ -8,7 +8,7 @@ City-Networks of long-range dependency
 
 ## Labels based on Eccentricity 
 <div align="center">
-  <img src="Figures/label_visual_map_huangpu_and_pasadena.jpg" alt="labels" style="width: 99%; height: 99%">
+  <img src="Figures/label_visual_map_huangpu_and_pasadena_16-hop_10-chunk.jpg" alt="labels" style="width: 99%; height: 99%">
 </div>
 
 
