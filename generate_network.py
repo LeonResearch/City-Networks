@@ -25,9 +25,7 @@ parser.add_argument('--augment_node_attr', type=bool, default=True)
 args = parser.parse_args()
 print(args)
 # 1. Load the Graph from OSMnX into a networkx Graph
-#### 1.1 First specify all the configurations in this file
-#['usa_main','usa_east_central','europe_west','uk','england','london','la','shanghai']
-place_name = args.place 
+place_name = args.place #['paris', 'london','la','shanghai']
 data_dir = f'./data/{place_name}/'
 places = generate_places(place_name)
 
@@ -125,7 +123,6 @@ print(f"Std. degree: {std_degree:.4f}")
 print(f"Avg. clustering coef: {avg_clustering_coef:.4f}")
 print(f"Transitivity: {transitivity:.4f}")
 print(f"Diameter Estimate Directed: {diameter_est_directed}")
-# %%%%%% End of Network Statistics %%%%%%   
 
 # Feature Engineering
 nodes = nodes.reset_index()
