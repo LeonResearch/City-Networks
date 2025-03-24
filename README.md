@@ -2,6 +2,8 @@
 We introduce **City-Networks**, a transductive learning dataset for testing long-range dependencies in Graph Neural Networks (GNNs).
 In particular, our dataset contains four large-scale city maps: Paris, Shanghai, L.A., and London, where nodes represent intersections and edges represent road segments.
 
+**Note**: We are currently integrating our dataset into [Pytorch Geometric](https://pytorch-geometric.readthedocs.io/en/latest/index.html) and expect to release it very soon.
+
 Paper: [Towards Quantifying Long-Range Interactions in Graph Machine Learning: a Large Graph Dataset and a Measurement
 ](https://arxiv.org/abs/2503.09008).
 
@@ -14,12 +16,11 @@ Paper: [Towards Quantifying Long-Range Interactions in Graph Machine Learning: a
 The nodes are labeled by an approximation of eccentricity, which measures the accessibility of a node in the network. We visualize two sub-regions in our dataset below, 
 where darker color indicates lower node eccentricity (i.e. more accessible). 
 
-Please refer to our paper for a more detailed discussion.
-
 <div align="center">
   <img src="Figures/label_visual_map_huangpu_and_pasadena_16-hop_10-chunk.jpg" alt="labels" style="width: 99%; height: 99%">
 </div>
 
+Please refer to our paper for a more detailed discussion.
 
 ## Installation
 ### 1. Create a virtual environment for GraphComBO
