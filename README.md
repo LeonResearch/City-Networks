@@ -37,7 +37,14 @@ pip install osmnx
 pip install publib
 ```
 
-## Run
+## Load as PyG Datasets
+
+**ToDo**
+
+We are currently integrating our dataset into [Pytorch Geometric](https://pytorch-geometric.readthedocs.io/en/latest/index.html) and expect to release it very soon.
+
+
+## Reproduce the Networks
 Use the commands in a bash shell to generate city networks with pre-specified queries in `places.py`,
 ```bash
 python generate_network.py --place paris
