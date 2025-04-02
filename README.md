@@ -22,7 +22,7 @@ A more detailed discussion can be found in the [paper](https://arxiv.org/abs/250
 
 
 ## Load as a PyG Dataset
-Use the `CityNetwork` class from `citynetworks.py` to load our dataset as a PyG InMemory Dataset.
+You can easily use the `CityNetwork` class from `citynetworks.py` to load our dataset as a PyG InMemory Dataset.
 
 Example usage:
 ```python
