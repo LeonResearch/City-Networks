@@ -22,7 +22,34 @@ where darker color indicates lower node eccentricity (i.e. more accessible).
 
 Please refer to our paper for a more detailed discussion.
 
-## Installation
+
+## Load as a PyG Dataset
+Use `CityNetwork` class from `citynetworks.py` to load our dataset as a PyG InMemory Dataset.
+
+Example usage:
+```python
+from citynetworks import CityNetwork
+
+dataset = CityNetwork(root="./city_networks", name="paris")
+paris_network = dataset[0]
+```
+Here `name` takes values in `[paris, shanghai, la, london]`
+
+**We are currently integrating our dataset into [Pytorch Geometric](https://pytorch-geometric.readthedocs.io/en/latest/index.html) and expect to release it very soon.**
+
+
+## Baseline Results
+
+### 1. Empirical Performance
+We test several standard GNNs and a Graph Transformer on our city networks and monitor their behaviors at different layers. 
+
+In particular, we consider #hops = #layers = [2, 4, 8, 16], and the results below suggest a clear gain in performance from increasing the number of layers.
+
+### 2. Per-hop Influence
+We further show the per-hop influence (measured by the Jacobian) under \#layers = 16. From the results, we can observe that the influence from distant nodes decays at a much slower rate on our city networks compared to other social networks.
+
+## Reproduce the Dataset
+
 ### 1. Create a virtual environment for GraphComBO
 ```bash
 conda create -n citynetworks python=3.10
@@ -37,14 +64,6 @@ pip install osmnx
 pip install publib
 ```
 
-## Load as PyG Datasets
-
-**ToDo**
-
-We are currently integrating our dataset into [Pytorch Geometric](https://pytorch-geometric.readthedocs.io/en/latest/index.html) and expect to release it very soon.
-
-
-## Reproduce the Networks
 Use the commands in a bash shell to generate city networks with pre-specified queries in `places.py`,
 ```bash
 python generate_network.py --place paris
