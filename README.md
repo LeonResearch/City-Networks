@@ -39,7 +39,7 @@ Here `name` takes values in `[paris, shanghai, la, london]`
 ## Baseline Results
 
 ### 1. Empirical Performance
-We test several standard GNNs and a Graph Transformer on our city networks and monitor their behaviors at different layers. 
+We test several standard GNNs and a Graph Transformer on our city networks with a *train/valid/test* split of *10%/10%/80%*, and then monitor their behaviors at different layers. 
 
 In particular, we consider #hops = #layers = [2, 4, 8, 16]. The results below suggest a clear gain in performance by increasing the number of layers on our city networks, as opposed to Cora where the models suffer from over-smoothing problems.
 
