@@ -18,11 +18,11 @@ where darker color indicates lower node eccentricity (i.e. more accessible).
   <img src="Figures/label_visual_map_huangpu_and_pasadena_16-hop_10-chunk.jpg" alt="labels" style="width: 99%; height: 99%">
 </div>
 
-Please refer to our paper for a more detailed discussion.
+A more detailed discussion can be found in the [paper](https://arxiv.org/abs/2503.09008).
 
 
 ## Load as a PyG Dataset
-You can easily use `CityNetwork` class from `citynetworks.py` to load our dataset as a PyG InMemory Dataset.
+Use the `CityNetwork` class from `citynetworks.py` to load our dataset as a PyG InMemory Dataset.
 
 Example usage:
 ```python
@@ -53,6 +53,8 @@ We further show the per-hop influence (measured by the Jacobian) under \#layers 
 <div align="center">
   <img src="Figures/influence_results.jpg" alt="labels" style="width: 99%; height: 99%">
 </div>
+
+A more detailed discussion can be found in the [paper](https://arxiv.org/abs/2503.09008).
 
 
 ## Reproduce the Dataset
