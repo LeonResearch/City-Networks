@@ -2,10 +2,8 @@
 We introduce **City-Networks**, a transductive learning dataset for testing long-range dependencies in Graph Neural Networks (GNNs).
 In particular, our dataset contains four large-scale city maps: Paris, Shanghai, L.A., and London, where nodes represent intersections and edges represent road segments.
 
-**Note**: We are currently integrating our dataset into [Pytorch Geometric](https://pytorch-geometric.readthedocs.io/en/latest/index.html) and expect to release it very soon.
-
-Paper: [Towards Quantifying Long-Range Interactions in Graph Machine Learning: a Large Graph Dataset and a Measurement
-](https://arxiv.org/abs/2503.09008).
+**Paper: [Towards Quantifying Long-Range Interactions in Graph Machine Learning: a Large Graph Dataset and a Measurement
+](https://arxiv.org/abs/2503.09008).**
 
 <div align="center">
   <img src="Figures/road_networks_visualizations_cities.jpg" alt="cities" style="width: 99%; height: 99%">
@@ -24,7 +22,7 @@ Please refer to our paper for a more detailed discussion.
 
 
 ## Load as a PyG Dataset
-Use `CityNetwork` class from `citynetworks.py` to load our dataset as a PyG InMemory Dataset.
+You can easily use `CityNetwork` class from `citynetworks.py` to load our dataset as a PyG InMemory Dataset.
 
 Example usage:
 ```python
@@ -35,7 +33,7 @@ paris_network = dataset[0]
 ```
 Here `name` takes values in `[paris, shanghai, la, london]`
 
-**We are currently integrating our dataset into [Pytorch Geometric](https://pytorch-geometric.readthedocs.io/en/latest/index.html) and expect to release it very soon.**
+**Note**: We are currently integrating our dataset into [Pytorch Geometric](https://pytorch-geometric.readthedocs.io/en/latest/index.html) and expect to release it very soon.
 
 
 ## Baseline Results
