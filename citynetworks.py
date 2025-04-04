@@ -25,6 +25,7 @@ class CityNetwork(InMemoryDataset):
     10 quantiles for transductive classification. See the original
     `source code <https://github.com/LeonResearch/City-Networks>`_ for more
     details on the individual networks.
+
     Args:
         root (str): Root directory where the dataset should be saved.
         name (str): The name of the dataset (:obj:`"paris"`,
@@ -42,6 +43,7 @@ class CityNetwork(InMemoryDataset):
             being saved to disk. (default: :obj:`None`)
         force_reload (bool, optional): Whether to re-process the dataset.
             (default: :obj:`False`)
+
     **STATS:**
     .. list-table::
         :widths: 10 10 10 10 10
