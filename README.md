@@ -71,6 +71,8 @@ pip install networkx
 pip install torch_geometric
 pip install osmnx
 pip install publib
+pip install torch
+pip install scikit-learn
 ```
 
 Use the commands in a bash shell to generate city networks with pre-specified queries in `places.py`,
