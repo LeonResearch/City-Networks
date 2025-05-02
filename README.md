@@ -35,6 +35,15 @@ Here `name` takes values in `[paris, shanghai, la, london]`
 
 **Note**: We are currently integrating our dataset into [Pytorch Geometric](https://pytorch-geometric.readthedocs.io/en/latest/index.html) and expect to release it very soon.
 
+**Update**: You can now access the `CityNetwork` dataset from the nightly version of `torch_geometric`:
+```bash
+pip install pyg-nightly
+```
+Or install from master:
+```bash
+pip install git+https://github.com/pyg-team/pytorch_geometric.git
+```
+
 
 ## Baseline Results
 
