@@ -70,7 +70,7 @@ A more detailed discussion can be found in the [paper](https://arxiv.org/abs/250
 
 ## Reproduce the Dataset
 
-### 1. Create a virtual environment for GraphComBO
+### 1. Create a virtual environment for CityNetworks
 ```bash
 conda create -n citynetworks python=3.10
 conda activate citynetworks
