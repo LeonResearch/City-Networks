@@ -33,7 +33,7 @@ paris_network = dataset[0]
 ```
 Here `name` takes values in `[paris, shanghai, la, london]`
 
-**Update**: We are currently integrating our dataset into [Pytorch Geometric](https://pytorch-geometric.readthedocs.io/en/latest/index.html), and you can now access the `CityNetwork` dataset from the latest version of PyG by installing from the master:
+**Update**: We are currently integrating our dataset into [Pytorch Geometric](https://pytorch-geometric.readthedocs.io/en/latest/index.html), and you can now access [CityNetwork](https://pytorch-geometric.readthedocs.io/en/latest/generated/torch_geometric.datasets.CityNetwork.html?highlight=city#torch_geometric.datasets.CityNetwork) from the latest version of PyG by installing from the master:
 ```bash
 pip install git+https://github.com/pyg-team/pytorch_geometric.git
 ```
