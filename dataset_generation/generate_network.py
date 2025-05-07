@@ -26,7 +26,7 @@ args = parser.parse_args()
 print(args)
 # 1. Load the Graph from OSMnX into a networkx Graph
 place_name = args.place #['paris', 'london','la','shanghai']
-data_dir = f'./data/{place_name}/'
+data_dir = f'../data/{place_name}/'
 places = generate_places(place_name)
 
 plot = True

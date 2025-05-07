@@ -7,9 +7,9 @@ import numpy as np
 # Load Cora dataset
 data_name = "PascalVOC-SP"
 if data_name in ["Cora", "Citeseer", "Pubmed"]:
-    dataset = Planetoid(root=f'./data/{data_name}', name=data_name)
+    dataset = Planetoid(root=f'../data/{data_name}', name=data_name)
 elif data_name in ["PascalVOC-SP", "COCO-SP"]:
-    dataset = LRGBDataset(root=f'./data/{data_name}', name=data_name)
+    dataset = LRGBDataset(root=f'../data/{data_name}', name=data_name)
     dataset = dataset [:1000]
 
 def get_stats(data):
