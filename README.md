@@ -90,7 +90,7 @@ pip install torch
 pip install scikit-learn
 ```
 
-Use the commands in a bash shell to generate city networks with pre-specified queries in `places.py`,
+Use the commands in a bash shell to generate city networks with pre-specified queries in `dataset_generation/places.py`,
 ```bash
 cd dataset_generation
 
