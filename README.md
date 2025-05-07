@@ -92,6 +92,8 @@ pip install scikit-learn
 
 Use the commands in a bash shell to generate city networks with pre-specified queries in `places.py`,
 ```bash
+cd dataset_generation
+
 python generate_network.py --place paris
 python generate_network.py --place shanghai
 python generate_network.py --place la
