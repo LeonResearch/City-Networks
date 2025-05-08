@@ -23,7 +23,7 @@ where darker color indicates lower node eccentricity (i.e. more accessible).
 A more detailed discussion can be found in the [paper](https://arxiv.org/abs/2503.09008).
 
 
-## Load as a PyG Dataset
+## Load CityNetwork as a PyG Dataset
 You can easily use the `CityNetwork` class from `citynetworks.py` to load our dataset as a PyG InMemory Dataset:
 ```python
 from citynetworks import CityNetwork
