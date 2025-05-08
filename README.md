@@ -67,7 +67,7 @@ We further show the per-hop influence (measured by the Jacobian) under \#layers 
 A more detailed discussion can be found in the [paper](https://arxiv.org/abs/2503.09008).
 
 
-## Reproduce the Dataset
+## Benchmarking
 
 ### 1. Create a virtual environment for CityNetworks
 ```bash
@@ -81,7 +81,16 @@ Simply use `install.sh` to install the required dependencies. The detailed packa
 bash install.sh
 ```
 
-Use the commands in a bash shell to generate city networks with pre-specified queries in `dataset_generation/places.py`,
+### 3. Run the Training Pipeline
+Use `experiments_run.sh` to run the baselines on our City-Networks.
+```bash
+bash experiments_run.sh
+```
+The results will be saved under `./results/` and the model checkpoints will be saved under `./models/`.
+
+## Reproduce the Dataset
+
+Inside the virtual environment, use the commands in a bash shell to generate city networks with pre-specified queries in `dataset_generation/places.py`,
 ```bash
 cd dataset_generation
 
@@ -90,6 +99,7 @@ python generate_network.py --place shanghai
 python generate_network.py --place la
 python generate_network.py --place london
 ```
+You can also visualize the city networks and their annotations using `Visualize_CityNetworks.ipynb` and `Visualize_Eccentricity.ipynb`.
 
 ## Citation
 Please cite our paper if you find the repo helpful in your work.
