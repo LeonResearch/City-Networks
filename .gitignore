@@ -167,5 +167,8 @@ data/paris
 data/shanghai
 data/huangpu
 data/pasadena
-city_networks
+citynetworks_data
+models
+results
+influence_results
 testing.py
