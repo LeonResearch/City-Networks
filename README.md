@@ -72,7 +72,7 @@ A more detailed discussion can be found in the [paper](https://arxiv.org/abs/250
 
 ## Benchmarking
 
-### 1. Create a virtual environment for CityNetworks
+### 1. Create a Virtual Environment for CityNetworks
 ```bash
 conda create -n citynetwork python=3.10
 conda activate citynetwork
