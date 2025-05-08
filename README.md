@@ -1,6 +1,8 @@
 # City-Networks
-We introduce [**City-Networks**](https://pytorch-geometric.readthedocs.io/en/latest/generated/torch_geometric.datasets.CityNetwork.html?highlight=city#torch_geometric.datasets.CityNetwork), a transductive learning dataset for testing long-range dependencies in Graph Neural Networks (GNNs).
+We introduce [***City-Networks***](https://pytorch-geometric.readthedocs.io/en/latest/generated/torch_geometric.datasets.CityNetwork.html?highlight=city#torch_geometric.datasets.CityNetwork), a transductive learning dataset for testing long-range dependencies in Graph Neural Networks (GNNs).
 In particular, our dataset contains four large-scale city maps: Paris, Shanghai, L.A., and London, where nodes represent intersections and edges represent road segments.
+
+At the same time, we introduce ***Total Influence***, a measurement based on the Jacobians that quantifies long-range dependency of a GNN model trained on a given graph.
 
 **Paper: [Towards Quantifying Long-Range Interactions in Graph Machine Learning: a Large Graph Dataset and a Measurement
 ](https://arxiv.org/abs/2503.09008).**
@@ -45,6 +47,8 @@ paris_network = dataset[0]
 ```
 Here `name` takes values in `[paris, shanghai, la, london]`.
 
+## Total Influence Calculation
+Given a trained GNN `model` with its underlying graph `data` from PyG, the total influence can be easily calculated with the following code.
 
 ## Baseline Results
 
