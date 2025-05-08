@@ -88,7 +88,7 @@ bash install.sh
 ### 3. Run the Training Pipeline
 Use `experiments_run.sh` to run the baselines on our City-Networks.
 ```bash
-bash experiments_run.sh
+bash train_run.sh
 ```
 The results will be saved under `./results/` and the model checkpoints will be saved under `./models/`.
 
