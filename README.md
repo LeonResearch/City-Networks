@@ -22,16 +22,10 @@ A more detailed discussion can be found in the [paper](https://arxiv.org/abs/250
 
 
 ## Load as a PyG Dataset
-You can easily use the `CityNetwork` class from `citynetworks.py` to load our dataset as a PyG InMemory Dataset.
-
-Example usage:
+You can easily use the `CityNetwork` class from `citynetworks.py` to load our dataset as a PyG InMemory Dataset:
 ```python
 from citynetworks import CityNetwork
-
-dataset = CityNetwork(root="./city_networks", name="paris")
-paris_network = dataset[0]
 ```
-Here `name` takes values in `[paris, shanghai, la, london]`
 
 **Update**: We are currently integrating our dataset into [Pytorch Geometric](https://pytorch-geometric.readthedocs.io/en/latest/index.html), and you can now access [CityNetwork](https://pytorch-geometric.readthedocs.io/en/latest/generated/torch_geometric.datasets.CityNetwork.html?highlight=city#torch_geometric.datasets.CityNetwork) from the latest version of PyG by installing the nightly version:
 ```bash
@@ -42,13 +36,14 @@ or from the master:
 pip install git+https://github.com/pyg-team/pytorch_geometric.git
 ```
 Example usage:
+
 ```python
 from torch_geometric.datasets import CityNetwork
 
 dataset = CityNetwork(root="./city_networks", name="paris")
 paris_network = dataset[0]
 ```
-
+Here `name` takes values in `[paris, shanghai, la, london]`.
 
 
 ## Baseline Results
