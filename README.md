@@ -91,6 +91,17 @@ bash train_run.sh
 ```
 The results will be saved under `./results/` and the model checkpoints will be saved under `./models/`.
 
+### 4. Calculate the Total Influence
+Use `influence_run.sh` to calculate the total influence based on the saved model checkpoint.
+```bash
+bash influence_run.sh
+```
+The results will be saved under `./influence_results/`.
+
+### Visualize the Baseline Resutls & Influence
+**You can easily plot the baseline results and influence scores using `plot_results.ipynb`.**
+
+
 ## Reproduce the Dataset
 
 Inside the virtual environment, use the commands in a bash shell to generate city networks with pre-specified queries in `dataset_generation/places.py`,
