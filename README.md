@@ -37,8 +37,7 @@ or from the master:
 ```bash
 pip install git+https://github.com/pyg-team/pytorch_geometric.git
 ```
-Example usage:
-
+**Example usage**:
 ```python
 from torch_geometric.datasets import CityNetwork
 
