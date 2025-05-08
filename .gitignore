@@ -171,4 +171,5 @@ citynetworks_data
 models
 results
 influence_results
+experiment_figs
 testing.py

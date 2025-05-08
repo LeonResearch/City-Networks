@@ -6,12 +6,12 @@ run_models(){
     local end_core=$5 # end CPU index
 
     # Experiment configs
-    local layers=16
-    local n_hidden=64
-    local epochs=30000
-    local num_samples=10000
-    local exp_name='May08'
-    local influence_dir='influence_results/May03'
+    local layers=16 # must match with the name of saved results/models
+    local n_hidden=64 # must match with the name of saved results/models
+    local epochs=1000 # must match with the name of saved results/models
+    local num_samples=10000 # Number of sampled nodes used for calculating influence
+    local exp_name='May08' # The experiment name of the saved model.
+    local influence_dir='influence_results/May08'
 
     # Run the Python script with taskset to set CPU affinity
     echo "Start_CPU: $start_core, End_CPU: $end_core Data: $DATASET, Model: $model, Num_layers: $layers"
@@ -22,16 +22,18 @@ run_models(){
 }
 
 # gcn sage cheb sgformer
-method=gcn
+method=cheb
 
 DATASETS=(
-    "paris"
+    #"paris"
     #"shanghai"
     #"la"
-    "london"
+    #"london"
+    "cora"
+    "citeseer"
 )
 start_core=10 # Starting CPU core
-k=10 # Number of CPU cores per job
+k=5 # Number of CPU cores per job
 gpu=0 # CUDA device id
 for (( idx=0; idx<${#DATASETS[@]}; idx++ )); do
     end_core=$((start_core + k - 1))

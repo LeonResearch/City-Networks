@@ -1,11 +1,13 @@
 # Author: Baskaran Sripathmanathan
 # Link: https://openreview.net/profile?id=~Baskaran_Sripathmanathan1
-from torch_geometric.utils import k_hop_subgraph
 
-# We use the older version of this function, because of the lower memory requirements
-from torch.autograd.functional import jacobian
+
 import torch
+import numpy as np
 from tqdm import tqdm
+# We use the older version of this function for its lower memory requirements
+from torch.autograd.functional import jacobian
+from torch_geometric.utils import k_hop_subgraph
 
 
 # An adjustment to k_hop_subgraph to give all of the per-hop subsets:
@@ -90,3 +92,11 @@ def total_influence(model, data, max_hops, device, vectorize=True, num_samples=1
         [jacobian_l1_agg_per_hop(model, data, max_hops, n, device, vectorize=vectorize) for n in tqdm(nodes)]
     )
     return res
+
+
+# The influence-weighted receptive field R
+def influence_weighted_receptive_field(T):
+    breadth = np.mean(
+        (T/T.sum(axis=0, keepdims=True)) @ np.arange(T.shape[0])
+    )
+    return breadth

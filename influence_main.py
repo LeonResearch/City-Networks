@@ -1,3 +1,5 @@
+# Author: Baskaran Sripathmanathan
+# Link: https://openreview.net/profile?id=~Baskaran_Sripathmanathan1
 import os
 import argparse
 import torch
@@ -7,6 +9,8 @@ import torch.nn.functional as F
 from benchmark.configs import parse_method, parser_add_main_args
 from influence.influence_score import total_influence
 from citynetworks import CityNetwork
+from torch_geometric.datasets import Planetoid
+
 
 def main_jacobian(model, data, args):
     jac_save_folder = args.influence_dir
@@ -36,8 +40,13 @@ if __name__ == '__main__':
 
     device = torch.device(f"cuda:{args.device}")
 
-    dataset = CityNetwork(root=args.data_dir, name=args.dataset)
+    print(f"Loading {args.dataset}...")
+    if args.dataset in ["paris", "shanghai", "la", "london"]:
+        dataset = CityNetwork(root=args.data_dir, name=args.dataset)
+    elif args.dataset in ["cora", "citeseer"]:
+        dataset = Planetoid(root=args.data_dir, name=args.dataset)
     data = dataset[0]
+
 
     # Initialize model
     input_channels = data.x.shape[1]

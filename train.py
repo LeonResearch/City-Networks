@@ -9,6 +9,7 @@ from copy import deepcopy
 from time import time
 
 from citynetworks import CityNetwork
+from torch_geometric.datasets import Planetoid
 from benchmark.configs import (
     parse_method,
     parser_add_main_args,
@@ -64,7 +65,10 @@ def main(args, logging_dict):
     device = torch.device(f"cuda:{args.device}")
 
     print(f"Loading {args.dataset}...")
-    dataset = CityNetwork(root=args.data_dir, name=args.dataset)
+    if args.dataset in ["paris", "shanghai", "la", "london"]:
+        dataset = CityNetwork(root=args.data_dir, name=args.dataset)
+    elif args.dataset in ["cora", "citeseer"]:
+        dataset = Planetoid(root=args.data_dir, name=args.dataset)
     data = dataset[0]
 
     # Load the big network with NeighborLoader
