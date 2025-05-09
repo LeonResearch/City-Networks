@@ -29,7 +29,7 @@ You can easily use the `CityNetwork` class from `citynetworks.py` to load our da
 from citynetworks import CityNetwork
 ```
 
-**Update**: We are currently integrating our dataset into [Pytorch Geometric](https://pytorch-geometric.readthedocs.io/en/latest/index.html), and you can now access [CityNetwork](https://pytorch-geometric.readthedocs.io/en/latest/generated/torch_geometric.datasets.CityNetwork.html?highlight=city#torch_geometric.datasets.CityNetwork) from the latest version of PyG by installing the nightly version:
+**Update**: Our dataset is now available on [Pytorch Geometric](https://pytorch-geometric.readthedocs.io/en/latest/index.html), and you can access [CityNetwork](https://pytorch-geometric.readthedocs.io/en/latest/generated/torch_geometric.datasets.CityNetwork.html?highlight=city#torch_geometric.datasets.CityNetwork) from the latest version of PyG by installing the nightly version:
 ```bash
 pip install pyg-nightly
 ```
@@ -47,7 +47,24 @@ paris_network = dataset[0]
 Here `name` takes values in `[paris, shanghai, la, london]`.
 
 ## Total Influence Calculation
-Given a trained GNN `model` with its underlying graph `data` from PyG, the total influence can be easily calculated with the following code.
+Given a trained GNN `model` with its underlying graph `data` from PyG, the ***Total Influence*** can be calculated with the `total_influence` method:
+```python
+from influence import total_influence
+
+avg_tot_inf, R = total_influence(
+    model, 
+    data, 
+    max_hops=16, # the largest hop to consider
+    num_samples=10000, # number of node samples
+    normalize=True, # if to normalize the influence by hop-0
+    average=True, # if to return the averaged total influence
+    device='cuda:0', # cuda or cpu
+    vectorize=True, # vectorize in torch.autograd.functional.jacobian
+)
+```
+where `avg_tot_inf` is the averaged total influence at each hop, and `R` is the breadth of influence-weighted receptive field averaged over the node samples. Readers may refer to Section 4 of our paper for a detailed discussion of this measurement.
+
+**Note**: We are currently integrating this method into [Pytorch Geometric](https://pytorch-geometric.readthedocs.io/en/latest/index.html) and aim to release it very soon.
 
 ## Baseline Results
 
@@ -98,7 +115,7 @@ bash influence_run.sh
 ```
 The results will be saved under `./influence_results/`.
 
-### Visualize the Baseline Resutls & Influence
+### 5. Visualize the Baseline Resutls & Influence
 **You can easily plot the baseline results and influence scores using `plot_results.ipynb`.**
 
 
