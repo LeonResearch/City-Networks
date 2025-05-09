@@ -2,7 +2,7 @@
 We introduce [***City-Networks***](https://pytorch-geometric.readthedocs.io/en/latest/generated/torch_geometric.datasets.CityNetwork.html?highlight=city#torch_geometric.datasets.CityNetwork), a transductive learning dataset for testing long-range dependencies in Graph Neural Networks (GNNs).
 In particular, our dataset contains four large-scale city maps: Paris, Shanghai, L.A., and London, where nodes represent intersections and edges represent road segments.
 
-At the same time, we introduce ***Total Influence***, a measurement based on the Jacobians that quantifies long-range dependency of a GNN model trained on a given graph.
+At the same time, we introduce ***Total Influence***, a measurement based on the Jacobians that quantifies long-range dependency of a trained GNN model.
 
 **Paper: [Towards Quantifying Long-Range Interactions in Graph Machine Learning: a Large Graph Dataset and a Measurement
 ](https://arxiv.org/abs/2503.09008).**
