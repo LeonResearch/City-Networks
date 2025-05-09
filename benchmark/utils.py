@@ -1,5 +1,4 @@
 import numpy as np
-import torch
 import matplotlib.pyplot as plt
 from sklearn.metrics import f1_score
 

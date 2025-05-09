@@ -8,7 +8,7 @@ run_models(){
     # Experiment configs
     local layers=16 # must match with the name of saved results/models
     local n_hidden=64 # must match with the name of saved results/models
-    local epochs=1000 # must match with the name of saved results/models
+    local epochs=30000 # must match with the name of saved results/models
     local num_samples=10000 # Number of sampled nodes used for calculating influence
     local exp_name='May08' # The experiment name of the saved model.
     local influence_dir='influence_results/May08'
@@ -22,21 +22,22 @@ run_models(){
 }
 
 # gcn sage cheb sgformer
-method=cheb
+method=gcn
 
+# Uncomment to execute in parallel
 DATASETS=(
-    #"paris"
-    #"shanghai"
-    #"la"
-    #"london"
-    "cora"
-    "citeseer"
+    #"cora"
+    #"citeseer"
+    "paris"
+    "shanghai"
+    "la"
+    "london"
 )
 start_core=10 # Starting CPU core
 k=5 # Number of CPU cores per job
 gpu=0 # CUDA device id
 for (( idx=0; idx<${#DATASETS[@]}; idx++ )); do
     end_core=$((start_core + k - 1))
-    run_models ${DATASETS[idx]} $method $gpu $start_core $end_core &
+    run_models ${DATASETS[idx]} $method $gpu $start_core $end_core 
     start_core=$((end_core + 1))
 done

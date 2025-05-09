@@ -1,7 +1,6 @@
 import os
 import torch
 import argparse
-import yaml
 import json
 import torch.nn.functional as F
 

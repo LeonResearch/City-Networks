@@ -1,36 +1,42 @@
 # Author: Baskaran Sripathmanathan
 # Link: https://openreview.net/profile?id=~Baskaran_Sripathmanathan1
+
 import os
 import argparse
 import torch
 import numpy as np
-import torch.nn.functional as F
 
 from benchmark.configs import parse_method, parser_add_main_args
-from influence.influence_score import total_influence
+from influence import total_influence
 from citynetworks import CityNetwork
 from torch_geometric.datasets import Planetoid
 
 
 def main_jacobian(model, data, args):
-    jac_save_folder = args.influence_dir
-    os.makedirs(jac_save_folder, exist_ok=True)
+    os.makedirs(args.influence_dir, exist_ok=True)
     #Calc Jacobian stuff
     print("Calculating Influence...")
     vectorize = not (args.method == "sgformer")
-    tot_inf = total_influence(
+    avg_tot_inf, R = total_influence(
         model, 
         data, 
         max_hops=16, 
+        num_samples=args.num_samples_influence,
+        normalize=True,
+        average=True,
         device=args.device, 
         vectorize=vectorize, 
-        num_samples=args.num_samples_influence,
     )
-    #Save down data
+    
+    #Save to result_dir 
     numpy_path = os.path.join(
-        jac_save_folder, f"{args.dataset}_{args.method}_influence.npy"
+        args.influence_dir, f"{args.dataset}_{args.method}_avg_tot_inf.npy"
     )
-    np.save(numpy_path,tot_inf)
+    np.save(numpy_path, avg_tot_inf)
+    numpy_path = os.path.join(
+        args.influence_dir, f"{args.dataset}_{args.method}_R.npy"
+    )
+    np.save(numpy_path, R)
 
 
 if __name__ == '__main__':
