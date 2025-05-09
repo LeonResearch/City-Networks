@@ -1,5 +1,3 @@
-# Author: Baskaran Sripathmanathan, Huidong Liang
-
 import torch
 from torch import Tensor
 from torch.autograd.functional import jacobian

@@ -1,5 +1,3 @@
-# Author: Baskaran Sripathmanathan, Huidong Liang
-
 import os
 import argparse
 import torch
