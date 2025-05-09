@@ -1,5 +1,4 @@
-# Author: Baskaran Sripathmanathan
-# Link: https://openreview.net/profile?id=~Baskaran_Sripathmanathan1
+# Author: Baskaran Sripathmanathan, Huidong Liang
 
 import torch
 from torch import Tensor
