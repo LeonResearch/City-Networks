@@ -11,7 +11,7 @@ run_models(){
     local epochs=30000 # must match with the name of saved results/models
     local num_samples=10000 # Number of sampled nodes used for calculating influence
     local exp_name='May08' # The experiment name of the saved model.
-    local influence_dir='influence_results/testing'
+    local influence_dir='influence_results/May08'
 
     if [ $DATASET == "cora" ]; then
         local epochs=1000
@@ -30,13 +30,13 @@ run_models(){
 }
 
 # gcn sage cheb sgformer
-method=sgformer
+method=gcn
 
 # Uncomment to execute in parallel
 DATASETS=(
-    "cora"
+    #"cora"
     #"citeseer"
-    #"paris"
+    "paris"
     #"shanghai"
     #"la"
     #"london"
