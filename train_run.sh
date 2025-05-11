@@ -29,16 +29,16 @@ run_models(){
 
 # Uncomment to execute in parallel
 DATASETS=(
-    "paris"
-    "shanghai"
-    "la"
+    #"paris"
+    #"shanghai"
+    #"la"
     "london"
 )
 
 # Given a machine with 4 GPUs and 40 cores,
 # the tasks can be executed in parallel
 for data in ${DATASETS[@]}; do
-    run_models $data cheb 0 0 30 &
+    run_models $data sgformer 0 0 30 &
     #run_models $data sage 1 10 10 &
     #run_models $data cheb 2 20 10 &
     #run_models $data sgformer 3 30 10 &

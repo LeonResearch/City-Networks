@@ -11,7 +11,15 @@ run_models(){
     local epochs=30000 # must match with the name of saved results/models
     local num_samples=10000 # Number of sampled nodes used for calculating influence
     local exp_name='May08' # The experiment name of the saved model.
-    local influence_dir='influence_results/May08'
+    local influence_dir='influence_results/testing'
+
+    if [ $DATASET == "cora" ]; then
+        local epochs=1000
+    elif [ $DATASET == "citeseer" ]; then
+        local epochs=1000
+    else
+        local epochs=30000
+    fi
 
     # Run the Python script with taskset to set CPU affinity
     echo "Start_CPU: $start_core, End_CPU: $end_core Data: $DATASET, Model: $model, Num_layers: $layers"
@@ -22,22 +30,22 @@ run_models(){
 }
 
 # gcn sage cheb sgformer
-method=gcn
+method=sgformer
 
 # Uncomment to execute in parallel
 DATASETS=(
-    #"cora"
+    "cora"
     #"citeseer"
-    "paris"
-    "shanghai"
-    "la"
-    "london"
+    #"paris"
+    #"shanghai"
+    #"la"
+    #"london"
 )
-start_core=10 # Starting CPU core
-k=5 # Number of CPU cores per job
+start_core=0 # Starting CPU core
+k=6 # Number of CPU cores per job
 gpu=0 # CUDA device id
 for (( idx=0; idx<${#DATASETS[@]}; idx++ )); do
     end_core=$((start_core + k - 1))
-    run_models ${DATASETS[idx]} $method $gpu $start_core $end_core 
+    run_models ${DATASETS[idx]} $method $gpu $start_core $end_core &
     start_core=$((end_core + 1))
 done
