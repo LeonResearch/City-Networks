@@ -36,13 +36,13 @@ method=gcn
 DATASETS=(
     #"cora"
     #"citeseer"
-    "paris"
+    #"paris"
     #"shanghai"
-    #"la"
+    "la"
     #"london"
 )
 start_core=0 # Starting CPU core
-k=6 # Number of CPU cores per job
+k=20 # Number of CPU cores per job
 gpu=0 # CUDA device id
 for (( idx=0; idx<${#DATASETS[@]}; idx++ )); do
     end_core=$((start_core + k - 1))

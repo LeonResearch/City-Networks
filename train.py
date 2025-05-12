@@ -114,16 +114,18 @@ def main(args, logging_dict):
         weight_decay=args.weight_decay,
     )
 
+
+    num_parameters = count_parameters(model)
+    start_time = time()
+    epoch_list, loss_list, train_score_list, valid_score_list, test_score_list = [], [], [], [], []
+    best_acc_val, best_val_epoch = 0, 0
+
     print(
         f"Dataset: {args.dataset} | Num nodes: { data.num_nodes} | "
         f"Num edges: {data.num_edges} | Num node feats: {input_channels} | "
         f"Num classes: {output_channels} \n"
-        f"Model: {model} | Num model parameters: {count_parameters(model)}"
+        f"Model: {model} | Num model parameters: {num_parameters}"
     )
-        
-    start_time = time()
-    epoch_list, loss_list, train_score_list, valid_score_list, test_score_list = [], [], [], [], []
-    best_acc_val, best_val_epoch = 0, 0
 
     for e in range(args.epochs):
         # Train
