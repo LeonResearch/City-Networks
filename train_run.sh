@@ -5,7 +5,7 @@ run_models(){
     local start_core=$4 # Starting CPU/GPU index
     local k=$5 # Number of CPU cores to use for each model
     # Experiment configs
-    local layers=(16 8 4 2)
+    local layers=(2)
     local batch_size=200000
     local n_hidden=64
     local lr=5e-4
@@ -29,16 +29,16 @@ run_models(){
 
 # Uncomment to execute in parallel
 DATASETS=(
-    "paris"
+    #"paris"
     #"shanghai"
     #"la"
-    #"london"
+    "london"
 )
 
 # Given a machine with 4 GPUs and 40 cores,
 # the tasks can be executed in parallel
 for data in ${DATASETS[@]}; do
-    run_models $data gcn 0 0 30 &
+    run_models $data sgformer 0 0 30 &
     #run_models $data sage 1 10 10 &
     #run_models $data cheb 2 20 10 &
     #run_models $data sgformer 3 30 10 &

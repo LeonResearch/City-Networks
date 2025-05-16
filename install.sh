@@ -7,3 +7,4 @@ pip install osmnx
 pip install publib
 pip install scikit-learn
 pip install pyyaml
+pip install tqdm
