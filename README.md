@@ -5,7 +5,7 @@ In particular, our dataset contains four large-scale city maps: Paris, Shanghai,
 At the same time, we introduce ***Total Influence***, a measurement based on the Jacobians that quantifies long-range dependency of a trained GNN model.
 
 **Paper: [Towards Quantifying Long-Range Interactions in Graph Machine Learning: a Large Graph Dataset and a Measurement
-](https://arxiv.org/abs/2503.09008).**
+]().**
 
 <div align="center">
   <img src="Figures/road_networks_visualizations_cities.jpg" alt="cities" style="width: 99%; height: 99%">
@@ -20,7 +20,7 @@ where darker color indicates lower node eccentricity (i.e. more accessible).
   <img src="Figures/label_visual_map_huangpu_and_pasadena_16-hop_10-chunk.jpg" alt="labels" style="width: 99%; height: 99%">
 </div>
 
-A more detailed discussion can be found in the [paper](https://arxiv.org/abs/2503.09008).
+A more detailed discussion can be found in the [paper]().
 
 
 ## Load CityNetwork as a PyG Dataset
@@ -84,7 +84,7 @@ We further show the per-hop influence (measured by the Jacobian) under \#layers 
   <img src="Figures/influence_results.jpg" alt="labels" style="width: 99%; height: 99%">
 </div>
 
-A more detailed discussion can be found in the [paper](https://arxiv.org/abs/2503.09008).
+A more detailed discussion can be found in the [paper]().
 
 
 ## Benchmarking
