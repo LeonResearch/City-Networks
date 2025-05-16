@@ -1,8 +1,3 @@
-"""
-Original Author: Baskaran Sripathmanathan <https://openreview.net/profile?id=~Baskaran_Sripathmanathan1>
-Modified by: Huidong Liang
-"""
-
 from typing import List, Tuple, Union, cast
 
 import torch
