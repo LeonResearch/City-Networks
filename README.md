@@ -7,6 +7,8 @@ At the same time, we introduce [***Total Influence***](https://pytorch-geometric
 **Paper: [Towards Quantifying Long-Range Interactions in Graph Machine Learning: a Large Graph Dataset and a Measurement
 ](https://arxiv.org/abs/2503.09008).**
 
+**Update:** [***CityNetwork***](https://pytorch-geometric.readthedocs.io/en/latest/generated/torch_geometric.datasets.CityNetwork.html?highlight=city#torch_geometric.datasets.CityNetwork) and [***Total Influence***](https://pytorch-geometric.readthedocs.io/en/latest/modules/utils.html#torch_geometric.utils.total_influence) are now both available in the latest version of [Pytorch Geometric](https://pytorch-geometric.readthedocs.io/en/latest/index.html) (2.7.0) 🚀🚀🚀
+
 <div align="center">
   <img src="Figures/road_networks_visualizations_cities.jpg" alt="cities" style="width: 99%; height: 99%">
 </div>
@@ -28,8 +30,7 @@ You can easily use the `CityNetwork` class from `citynetworks.py` to load our da
 ```python
 from citynetworks import CityNetwork
 ```
-
-**Update:** our [***CityNetwork***](https://pytorch-geometric.readthedocs.io/en/latest/generated/torch_geometric.datasets.CityNetwork.html?highlight=city#torch_geometric.datasets.CityNetwork) is now available on the latest version of [Pytorch Geometric](https://pytorch-geometric.readthedocs.io/en/latest/index.html) (2.7.0). To load the dataset, install the nightly version:
+You can also load [***CityNetwork***](https://pytorch-geometric.readthedocs.io/en/latest/generated/torch_geometric.datasets.CityNetwork.html?highlight=city#torch_geometric.datasets.CityNetwork) from the latest version of [Pytorch Geometric](https://pytorch-geometric.readthedocs.io/en/latest/index.html) (2.7.0) by installing the nightly version:
 ```bash
 pip install pyg-nightly
 ```
@@ -37,7 +38,7 @@ or from the master:
 ```bash
 pip install git+https://github.com/pyg-team/pytorch_geometric.git
 ```
-**Example**:
+**Example usage**:
 ```python
 from torch_geometric.datasets import CityNetwork
 
@@ -47,14 +48,11 @@ paris_network = dataset[0]
 Here `name` takes values in `[paris, shanghai, la, london]`.
 
 ## Total Influence Calculation
-Given a trained GNN `model` with its underlying graph `data` from PyG, the ***Total Influence*** can be calculated with the `total_influence` method from `influence/influence.py`:
+Given a trained GNN `model` with its underlying graph `data` from PyG, the [***Total Influence***](https://pytorch-geometric.readthedocs.io/en/latest/modules/utils.html#torch_geometric.utils.total_influence) can be calculated with the `total_influence` method from `influence/influence.py`:
 ```python
 from influence import total_influence
 ```
-
-**Update:** our [***Total Influence***](https://pytorch-geometric.readthedocs.io/en/latest/modules/utils.html#torch_geometric.utils.total_influence) is now available on the latest [Pytorch Geometric](https://pytorch-geometric.readthedocs.io/en/latest/index.html) (2.7.0).
-
-**Example usage**:
+or from the latest [Pytorch Geometric](https://pytorch-geometric.readthedocs.io/en/latest/index.html) (2.7.0):
 ```python
 from torch_geometric.utils import total_influence
 
