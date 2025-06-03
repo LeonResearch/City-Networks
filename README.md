@@ -67,7 +67,7 @@ avg_tot_inf, R = total_influence(
     vectorize=True, # vectorize in torch.autograd.functional.jacobian
 )
 ```
-where `avg_tot_inf` is the averaged total influence at each hop, and `R` is the breadth of influence-weighted receptive field averaged over the node samples. Readers may refer to Section 4 of our paper for a detailed discussion of this measurement.
+Here `avg_tot_inf` is the averaged total influence at each hop, and `R` is the breadth of influence-weighted receptive field averaged over the node samples. Readers may refer to Section 4 of our paper for a detailed discussion of this measurement.
 
 ## Baseline Results
 
