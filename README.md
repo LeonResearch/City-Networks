@@ -2,7 +2,7 @@
 We introduce [***City-Networks***](https://pytorch-geometric.readthedocs.io/en/latest/generated/torch_geometric.datasets.CityNetwork.html?highlight=city#torch_geometric.datasets.CityNetwork), a transductive learning dataset for testing long-range dependencies in Graph Neural Networks (GNNs).
 In particular, our dataset contains four large-scale city maps: Paris, Shanghai, L.A., and London, where nodes represent intersections and edges represent road segments.
 
-At the same time, we introduce ***Total Influence***, a measurement based on the Jacobians that quantifies long-range dependency of a trained GNN model.
+At the same time, we introduce [***Total Influence***](https://pytorch-geometric.readthedocs.io/en/latest/modules/utils.html#torch_geometric.utils.total_influence), a measurement based on the Jacobians that quantifies long-range dependency of a trained GNN model.
 
 **Paper: [Towards Quantifying Long-Range Interactions in Graph Machine Learning: a Large Graph Dataset and a Measurement
 ](https://arxiv.org/abs/2503.09008).**
@@ -29,7 +29,7 @@ You can easily use the `CityNetwork` class from `citynetworks.py` to load our da
 from citynetworks import CityNetwork
 ```
 
-**Update**: Our dataset is now available on [Pytorch Geometric](https://pytorch-geometric.readthedocs.io/en/latest/index.html), and you can access [CityNetwork](https://pytorch-geometric.readthedocs.io/en/latest/generated/torch_geometric.datasets.CityNetwork.html?highlight=city#torch_geometric.datasets.CityNetwork) from the latest version of PyG by installing the nightly version:
+**Update:** our [***CityNetwork***](https://pytorch-geometric.readthedocs.io/en/latest/generated/torch_geometric.datasets.CityNetwork.html?highlight=city#torch_geometric.datasets.CityNetwork) is now available on the latest version of [Pytorch Geometric](https://pytorch-geometric.readthedocs.io/en/latest/index.html) (2.7.0). To load the dataset, install the nightly version:
 ```bash
 pip install pyg-nightly
 ```
@@ -37,7 +37,7 @@ or from the master:
 ```bash
 pip install git+https://github.com/pyg-team/pytorch_geometric.git
 ```
-**Example usage**:
+**Example**:
 ```python
 from torch_geometric.datasets import CityNetwork
 
@@ -47,9 +47,16 @@ paris_network = dataset[0]
 Here `name` takes values in `[paris, shanghai, la, london]`.
 
 ## Total Influence Calculation
-Given a trained GNN `model` with its underlying graph `data` from PyG, the ***Total Influence*** can be calculated with the `total_influence` method:
+Given a trained GNN `model` with its underlying graph `data` from PyG, the ***Total Influence*** can be calculated with the `total_influence` method from `influence/influence.py`:
 ```python
 from influence import total_influence
+```
+
+**Update:** our [***Total Influence***](https://pytorch-geometric.readthedocs.io/en/latest/modules/utils.html#torch_geometric.utils.total_influence) is now available on the latest [Pytorch Geometric](https://pytorch-geometric.readthedocs.io/en/latest/index.html) (2.7.0).
+
+**Example usage**:
+```python
+from torch_geometric.utils import total_influence
 
 avg_tot_inf, R = total_influence(
     model, 
@@ -63,8 +70,6 @@ avg_tot_inf, R = total_influence(
 )
 ```
 where `avg_tot_inf` is the averaged total influence at each hop, and `R` is the breadth of influence-weighted receptive field averaged over the node samples. Readers may refer to Section 4 of our paper for a detailed discussion of this measurement.
-
-**Note**: We are currently integrating this method into [Pytorch Geometric](https://pytorch-geometric.readthedocs.io/en/latest/index.html) and aim to release it very soon.
 
 ## Baseline Results
 
