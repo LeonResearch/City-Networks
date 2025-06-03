@@ -73,17 +73,9 @@ def compute_k_hop_homophily(node_labels, edge_index, K, node_mask=None, sampling
     return avg_homophily_score.item()
 
 
-def compute_k_hop_eccentricity(edge_index, edge_weight, k, node_samples=None, sample_rate=0.1):
+def compute_k_hop_eccentricity(edge_index, edge_weight, k):
     num_nodes = torch.max(edge_index).item() + 1  # Total number of nodes
-    if sample_rate < 1: # Randomly sample nodes
-        torch.manual_seed(0)
-        sample_size = int(sample_rate * num_nodes)
-        sampled_nodes = torch.randperm(num_nodes)[:sample_size].tolist()
-    else:
-        sampled_nodes = list(range(num_nodes))
-
-    if node_samples is not None:
-        sampled_nodes = node_samples
+    sampled_nodes = list(range(num_nodes))
 
     edges = edge_index.T.tolist()
     weights = edge_weight.tolist()
@@ -92,7 +84,7 @@ def compute_k_hop_eccentricity(edge_index, edge_weight, k, node_samples=None, sa
         graph.add_edge(u, v, weight=w)
     
     eccentricities = []
-    for node in tqdm(sampled_nodes, desc="Computing eccentricity", unit="node"):
+    for node in tqdm(sampled_nodes, desc=f"Computing eccentricity @ {k}-hop", unit="node"):
         # Extract k-hop subgraph
         sub_nodes, sub_edge_index, _, _ = k_hop_subgraph(
             node, k, edge_index, relabel_nodes=True
@@ -126,59 +118,3 @@ def create_partition_labels(target, n_chunks):
     # match the labels with indices
     labels[sorted_indices] = chunk_indices
     return labels
-
-
-def haversine(coords1, coords2):
-    """
-    Calculate the great-circle distance between pairs of coordinates using the Haversine formula.
-    Assumes coordinates are in [longitude, latitude] format.
-    
-    Args:
-    - coords1 (torch.Tensor): Tensor of shape (N, 2), where each row is [longitude, latitude] in degrees.
-    - coords2 (torch.Tensor): Tensor of shape (N, 2), where each row is [longitude, latitude] in degrees.
-    
-    Returns:
-    - torch.Tensor: Distance between each pair of coordinates in kilometers.
-    """
-    R = 6371.0  # Earth's radius in kilometers
-
-    # Convert degrees to radians manually
-    deg_to_rad = torch.pi / 180.0
-    lon1, lat1 = coords1[:, 0] * deg_to_rad, coords1[:, 1] * deg_to_rad  # Swap to [lat, lon]
-    lon2, lat2 = coords2[:, 0] * deg_to_rad, coords2[:, 1] * deg_to_rad
-
-    # Calculate differences
-    dlat = lat2 - lat1
-    dlon = lon2 - lon1
-
-    # Apply the Haversine formula
-    a = torch.sin(dlat / 2)**2 + torch.cos(lat1) * torch.cos(lat2) * torch.sin(dlon / 2)**2
-    c = 2 * torch.atan2(torch.sqrt(a), torch.sqrt(1 - a))
-
-    # Return the distance in kilometers
-    return R * c
-
-
-def compute_k_hop_euclidean(node_feat, edge_index, edge_weight, k, node_samples=None, sample_rate=0.1):
-    if sample_rate < 1:
-        torch.manual_seed(0)
-        num_nodes = torch.max(edge_index).item() + 1  # Total number of nodes
-        sample_size = int(sample_rate * num_nodes)
-        sampled_nodes = torch.randperm(num_nodes)[:sample_size]  # Randomly sample nodes
-    else:
-        sampled_nodes = list(range(num_nodes))
-    
-    if node_samples is not None:
-        sampled_nodes = node_samples
-    
-    euclidean = []
-    for node in tqdm(sampled_nodes, desc="Computing euclidean distances", unit="node"):
-        sub_nodes, sub_edge_index, _, _ = k_hop_subgraph(
-            node.item(), k, edge_index, relabel_nodes=False
-        )
-        coord1 = node_feat[node,:2].repeat([len(sub_nodes),1])
-        coord2 = node_feat[sub_nodes, :2]
-
-        dist = haversine(coord1, coord2)
-        euclidean.append(dist.max().item())
-    return euclidean, sampled_nodes
