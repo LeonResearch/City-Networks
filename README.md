@@ -30,11 +30,11 @@ You can easily use the `CityNetwork` class from `citynetworks.py` to load our da
 ```python
 from citynetworks import CityNetwork
 ```
-You can also load [***CityNetwork***](https://pytorch-geometric.readthedocs.io/en/latest/generated/torch_geometric.datasets.CityNetwork.html?highlight=city#torch_geometric.datasets.CityNetwork) from the latest version of [Pytorch Geometric](https://pytorch-geometric.readthedocs.io/en/latest/index.html) (2.7.0) by installing the nightly version:
+You can also load [***CityNetwork***](https://pytorch-geometric.readthedocs.io/en/latest/generated/torch_geometric.datasets.CityNetwork.html?highlight=city#torch_geometric.datasets.CityNetwork) from the latest [Pytorch Geometric](https://pytorch-geometric.readthedocs.io/en/latest/index.html) (2.7.0) by installing its [**nightly version**](https://pypi.org/project/pyg-nightly/):
 ```bash
 pip install pyg-nightly
 ```
-or from the master:
+or from [**master**](https://github.com/pyg-team/pytorch_geometric):
 ```bash
 pip install git+https://github.com/pyg-team/pytorch_geometric.git
 ```
