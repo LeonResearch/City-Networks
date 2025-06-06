@@ -56,6 +56,8 @@ or from the latest [Pytorch Geometric](https://pytorch-geometric.readthedocs.io/
 ```python
 from torch_geometric.utils import total_influence
 
+model.eval()
+
 avg_tot_inf, R = total_influence(
     model, 
     data, 
