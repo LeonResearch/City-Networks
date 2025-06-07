@@ -2,7 +2,7 @@
 We introduce [***City-Networks***](https://pytorch-geometric.readthedocs.io/en/latest/generated/torch_geometric.datasets.CityNetwork.html?highlight=city#torch_geometric.datasets.CityNetwork), a transductive learning dataset for testing long-range dependencies in Graph Neural Networks (GNNs).
 In particular, our dataset contains four large-scale city maps: Paris, Shanghai, L.A., and London, where nodes represent intersections and edges represent road segments.
 
-At the same time, we introduce [***Total Influence***](https://pytorch-geometric.readthedocs.io/en/latest/modules/utils.html#torch_geometric.utils.total_influence), a measurement based on the Jacobians that quantifies long-range dependency of a trained GNN model.
+At the same time, we introduce [***Total Influence***](https://pytorch-geometric.readthedocs.io/en/latest/modules/utils.html#torch_geometric.utils.total_influence), a measurement based on the Jacobians that quantifies long-range dependency of a trained GNN model for node-level tasks.
 
 **Paper: [Towards Quantifying Long-Range Interactions in Graph Machine Learning: a Large Graph Dataset and a Measurement
 ](https://arxiv.org/abs/2503.09008).**
@@ -69,7 +69,11 @@ avg_tot_inf, R = total_influence(
     vectorize=True, # vectorize in torch.autograd.functional.jacobian
 )
 ```
-Here `avg_tot_inf` is the averaged total influence at each hop, and `R` is the breadth of influence-weighted receptive field averaged over the node samples. Readers may refer to Section 4 of our paper for a detailed discussion of this measurement.
+Here `avg_tot_inf` is the averaged total influence at each hop, and `R` is the breadth of influence-weighted receptive field averaged over the node samples. 
+
+**Note:** although the scope of our paper is under transductive settings, this measurement also works for inductive node-level tasks. 
+
+Readers may refer to Section 4 of our paper for a detailed discussion of this measurement.
 
 ## Baseline Results
 
