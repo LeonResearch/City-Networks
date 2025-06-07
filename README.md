@@ -78,7 +78,7 @@ Here `avg_tot_inf` is the averaged total influence at each hop, and `R` is the b
 ### 1. Empirical Performance
 We test several standard GNNs and a Graph Transformer on our city networks with a *train/valid/test* split of *10%/10%/80%*, and then monitor their behaviors at different layers. 
 
-In particular, we consider #hops = #layers = [2, 4, 8, 16]. The results below suggest a clear gain in performance by increasing the number of layers on our city networks, as opposed to Cora where the models suffer from over-smoothing problems.
+In particular, we consider **#hops = #layers = [2, 4, 8, 16]** and set **hidden_size=64** for all layers. The results below suggest a clear gain in performance by increasing the number of layers on our city networks, as opposed to Cora where the models suffer from over-smoothing problems.
 
 <div align="center">
   <img src="Figures/baseline_results.jpg" alt="labels" style="width: 99%; height: 99%">
