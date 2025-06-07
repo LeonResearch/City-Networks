@@ -71,9 +71,7 @@ avg_tot_inf, R = total_influence(
 ```
 Here `avg_tot_inf` is the averaged total influence at each hop, and `R` is the breadth of influence-weighted receptive field averaged over the node samples. 
 
-**Note:** although the scope of our paper is under transductive settings, this measurement also works for inductive node-level tasks. 
-
-Readers may refer to Section 4 of our paper for a detailed discussion of this measurement.
+**Note:** although the scope of our paper is under transductive settings, this measurement also works for inductive node-level tasks. Readers may refer to Section 4 of our paper for a detailed discussion of this measurement.
 
 ## Baseline Results
 
