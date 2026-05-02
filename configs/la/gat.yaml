@@ -18,8 +18,8 @@ model:
   hidden_channels: 128
   num_heads: 1
   residual: True
-  layer_norm: False
-  batch_norm: True
+  layer_norm: True
+  batch_norm: False
   pre_layer_norm: False
   pre_linear: True
   jump_knowledge: False
