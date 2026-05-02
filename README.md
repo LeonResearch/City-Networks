@@ -1,5 +1,5 @@
 # City-Networks
-We introduce [***City-Networks***](https://pytorch-geometric.readthedocs.io/en/latest/generated/torch_geometric.datasets.CityNetwork.html?highlight=city#torch_geometric.datasets.CityNetwork), a transductive learning dataset for testing long-range dependencies in Graph Neural Networks (GNNs).
+We introduce [***City-Networks***](https://pytorch-geometric.readthedocs.io/en/latest/generated/torch_geometric.datasets.CityNetwork.html#torch_geometric.datasets.CityNetwork), a transductive learning dataset for testing long-range dependencies in Graph Neural Networks (GNNs).
 In particular, our dataset contains four large-scale city maps: Paris, Shanghai, L.A., and London, where nodes represent intersections and edges represent road segments.
 
 At the same time, we introduce [***Total Influence***](https://pytorch-geometric.readthedocs.io/en/latest/modules/utils.html#torch_geometric.utils.total_influence), a measurement based on the Jacobians that quantifies long-range dependency of a trained GNN model for node-level tasks.
@@ -7,7 +7,7 @@ At the same time, we introduce [***Total Influence***](https://pytorch-geometric
 **Paper: [Towards Quantifying Long-Range Interactions in Graph Machine Learning: a Large Graph Dataset and a Measurement
 ](https://arxiv.org/abs/2503.09008).**
 
-**Update:** [***CityNetwork***](https://pytorch-geometric.readthedocs.io/en/latest/generated/torch_geometric.datasets.CityNetwork.html?highlight=city#torch_geometric.datasets.CityNetwork) and [***Total Influence***](https://pytorch-geometric.readthedocs.io/en/latest/modules/utils.html#torch_geometric.utils.total_influence) are now both available in the latest version of [**Pytorch Geometric**](https://pytorch-geometric.readthedocs.io/en/latest/index.html) (2.7.0) 🚀
+**Update:** [***CityNetwork***](https://pytorch-geometric.readthedocs.io/en/latest/generated/torch_geometric.datasets.CityNetwork.html#torch_geometric.datasets.CityNetwork) and [***Total Influence***](https://pytorch-geometric.readthedocs.io/en/latest/modules/utils.html#torch_geometric.utils.total_influence) are now both available in the latest version of [**Pytorch Geometric**](https://pytorch-geometric.readthedocs.io/en/latest/index.html) (2.7.0) 🚀
 
 <div align="center">
   <img src="Figures/road_networks_visualizations_cities.jpg" alt="cities" style="width: 99%; height: 99%">
@@ -78,14 +78,14 @@ Here `avg_tot_inf` is the averaged total influence at each hop, and `R` is the b
 ### 1. Empirical Performance
 We test several standard GNNs and a Graph Transformer on our city networks with a *train/valid/test* split of *10%/10%/80%*, and then monitor their behaviors at different layers. 
 
-In particular, we consider **#hops = #layers = [2, 4, 8, 16]** and set **hidden_size=64** for all layers. The results below suggest a clear gain in performance by increasing the number of layers on our city networks, as opposed to Cora where the models suffer from over-smoothing problems.
+In particular, we consider **#hops = #layers = [2, 4, 8, 16]** and set **hidden_size=128** for all layers as default. The results below suggest a clear gain in performance by increasing the number of layers on our city networks, as opposed to other short-range datasets.
 
 <div align="center">
   <img src="Figures/baseline_results__submission.jpg" alt="labels" style="width: 99%; height: 99%">
 </div>
 
 ### 2. Per-hop Influence
-We further show the per-hop influence (measured by the Jacobian) under \#layers = 16. We can observe from the following results that the influence from distant nodes decays at a much slower rate on our city networks compared to the rate on other social networks.
+We further show the per-hop influence (measured by the Jacobian) under \#layers = 16. We can observe from the following results that the influence from distant nodes decays at a much slower rate on our city networks compared to the rate on other datasets.
 
 <div align="center">
   <img src="Figures/Sep16_influence.jpg" alt="labels" style="width: 99%; height: 99%">
@@ -109,9 +109,9 @@ bash install.sh
 ```
 
 ### 3. Run the Training Pipeline
-Use `experiments_run.sh` to run the baselines on our City-Networks.
+Use `run.sh` to run the baselines on our City-Networks.
 ```bash
-bash train_run.sh
+bash run.sh
 ```
 The results will be saved under `./results/` and the model checkpoints will be saved under `./models/`.
 
