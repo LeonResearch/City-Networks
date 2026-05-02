@@ -75,6 +75,12 @@ In particular, we consider **#hops = #layers = [2, 4, 8, 16]** and set **hidden_
   <img src="Figures/baseline_results__submission.jpg" alt="labels" style="width: 99%; height: 99%">
 </div>
 
+For reference, we summarize the best baseline results on City-Networks in the table below, where depths for all models are set to 16.
+
+<div align="center">
+  <img src="Figures/results_table.jpg" alt="labels" style="width: 99%; height: 99%">
+</div>
+
 ### 2. Per-hop Influence
 We further show the per-hop influence (measured by the Jacobian) under \#layers = 16. We can observe from the following results that the influence from distant nodes decays at a much slower rate on our city networks compared to the rate on other datasets.
 
