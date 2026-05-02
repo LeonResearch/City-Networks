@@ -1,16 +1,33 @@
 import torch
-from torch_geometric.datasets import Planetoid, LRGBDataset
+from torch_geometric.datasets import (
+    Planetoid, 
+    LRGBDataset,
+    HeterophilousGraphDataset,
+    WebKB,
+)
 from torch_geometric.utils import to_networkx
 import networkx as nx
 import numpy as np
 
 # Load Cora dataset
-data_name = "PascalVOC-SP"
+data_name = "wisconsin"
 if data_name in ["Cora", "Citeseer", "Pubmed"]:
     dataset = Planetoid(root=f'../data/{data_name}', name=data_name)
 elif data_name in ["PascalVOC-SP", "COCO-SP"]:
     dataset = LRGBDataset(root=f'../data/{data_name}', name=data_name)
     dataset = dataset [:1000]
+elif data_name.lower in ["amazon-ratings", "roman-empire"]:
+    dataset = HeterophilousGraphDataset(
+        root='../citynetworks_data', 
+        name=data_name.lower(),
+    )
+elif data_name in ['cornell', 'texas', 'wisconsin']:
+    dataset = WebKB(
+        root="../citynetworks_data",
+        name=data_name,
+    )
+
+print(f"{data_name} loaded!")
 
 def get_stats(data):
     graph = to_networkx(data, to_undirected=True)
@@ -20,6 +37,7 @@ def get_stats(data):
     degrees = [d for _, d in graph.degree()]
     avg_degree = np.mean(degrees)
     std_degree = np.std(degrees)
+    max_degree = np.max(degrees)
     # average clustering coefficient
     avg_clustering_coef = nx.average_clustering(graph)
     # transitivity
@@ -43,6 +61,7 @@ def get_stats(data):
         num_edges, 
         avg_degree, 
         std_degree, 
+        max_degree,
         avg_clustering_coef, 
         transitivity,
         diameter,
@@ -55,6 +74,7 @@ stats = {
     "num_edges":[], 
     "avg_degree":[], 
     "std_degree":[], 
+    "max_degree":[],
     "avg_clustering_coef":[], 
     "transitivity":[],
     "diameter":[],
@@ -66,7 +86,8 @@ for data in dataset:
         num_nodes, 
         num_edges, 
         avg_degree, 
-        std_degree, 
+        std_degree,
+        max_degree,
         avg_clustering_coef, 
         transitivity,
         diameter,
@@ -77,6 +98,7 @@ for data in dataset:
     stats["num_edges"].append(num_edges)
     stats["avg_degree"].append(avg_degree)
     stats["std_degree"].append(std_degree)
+    stats["max_degree"].append(max_degree)
     stats["avg_clustering_coef"].append(avg_clustering_coef)
     stats["transitivity"].append(transitivity)
     stats["diameter"].append(diameter)
@@ -87,6 +109,8 @@ print(f"Number of Nodes: {np.array(stats['num_nodes']).mean()}")
 print(f"Number of Edges: {np.array(stats['num_edges']).mean()}")
 print(f"Average Degree: {np.array(stats['avg_degree']).mean():.4f}")
 print(f"Standard Deviation of Degree: {np.array(stats['std_degree']).mean():.4f}")
+print(f"Max Degree: {np.array(stats['max_degree']).mean():.4f}")
+
 print(f"Average Clustering Coefficient: {np.array(stats['avg_clustering_coef']).mean():.4f}")
 print(f"Transitivity: {np.array(stats['transitivity']).mean():.4f}")
 print(f"Diameter: {np.array(stats['diameter']).mean()}")

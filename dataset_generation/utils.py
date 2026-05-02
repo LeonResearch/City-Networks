@@ -97,6 +97,24 @@ def compute_k_hop_eccentricity(edge_index, edge_weight, k):
     return torch.tensor(eccentricities), torch.tensor(sampled_nodes)
 
 
+def compute_exact_eccentricity(edge_index, edge_weight):
+    num_nodes = torch.max(edge_index).item() + 1  # Total number of nodes
+    sampled_nodes = list(range(num_nodes))
+
+    edges = edge_index.T.tolist()
+    weights = edge_weight.tolist()
+    graph = nx.Graph()
+    for (u, v), w in zip(edges, weights):
+        graph.add_edge(u, v, weight=w)
+    
+    eccentricities = []
+    for node in tqdm(sampled_nodes, desc=f"Computing exact eccentricity", unit="node"):
+        # Calculate eccentricity for the node within its k-hop subgraph
+        ecc = nx.eccentricity(graph, v=node, weight='weight')
+        eccentricities.append(ecc)
+    return torch.tensor(eccentricities), torch.tensor(sampled_nodes)
+
+
 def count_k_hop_labels(node_label, edge_index, k):
     k_hop_label_counts = torch.zeros(node_label.shape[0])
     for i in tqdm(range(node_label.shape[0])):

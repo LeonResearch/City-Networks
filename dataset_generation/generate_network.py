@@ -15,18 +15,21 @@ from generate_dataset import feature_engineering
 
 # %%%%%% Setting up configurations %%%%%%
 parser = argparse.ArgumentParser()
+parser.add_argument('--save_dir', type=str, default='../data')
 parser.add_argument('--place', type=str, default='paris')
 parser.add_argument('--type', type=str, default='all')
 parser.add_argument('--K_list', type=list[int], default=[16])
 parser.add_argument('--n_bins_label', type=int, default=10)
 parser.add_argument('--retain_all', type=bool, default=False)
 parser.add_argument('--augment_node_attr', type=bool, default=True)
+parser.add_argument('--edge_weight', type=str, default='road_length')
+parser.add_argument('--exact_eccentricity', action="store_true")
 
 args = parser.parse_args()
 print(args)
 # 1. Load the Graph from OSMnX into a networkx Graph
 place_name = args.place #['paris', 'london','la','shanghai']
-data_dir = f'../data/{place_name}/'
+data_dir = f'{args.save_dir}' + f'/{place_name}/'
 places = generate_places(place_name)
 
 plot = True

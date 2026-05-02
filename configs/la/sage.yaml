@@ -1,0 +1,25 @@
+exp_name: 08Aug # Can be over-written by args
+dataset: la
+dataset_dir: ./citynetworks_data
+results_dir: ./results
+models_dir: ./models
+method: sage
+seed: 0
+device: 0
+train:
+  epochs: 20000
+  evaluation_window: 100
+  lr: 5.e-4
+  dropout: 0.2
+  weight_decay: 1.e-5
+  save_model: True
+model:
+  num_layers: 16
+  hidden_channels: 128
+  num_heads: 1
+  residual: True
+  layer_norm: False
+  batch_norm: True
+  pre_layer_norm: False
+  pre_linear: True
+  jump_knowledge: False
