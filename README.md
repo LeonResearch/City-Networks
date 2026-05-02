@@ -4,10 +4,10 @@ In particular, our dataset contains four large-scale city maps: Paris, Shanghai,
 
 At the same time, we introduce [***Total Influence***](https://pytorch-geometric.readthedocs.io/en/latest/modules/utils.html#torch_geometric.utils.total_influence), a measurement based on the Jacobians that quantifies long-range dependency of a trained GNN model for node-level tasks.
 
-**Paper: [Towards Quantifying Long-Range Interactions in Graph Machine Learning: a Large Graph Dataset and a Measurement
-](https://arxiv.org/abs/2503.09008).**
+**Paper [ICLR-2026]:** [***Towards Quantifying Long-Range Interactions in Graph Machine Learning: a Large Graph Dataset and a Measurement***
+](https://arxiv.org/abs/2503.09008).
 
-**Update:** [***CityNetwork***](https://pytorch-geometric.readthedocs.io/en/latest/generated/torch_geometric.datasets.CityNetwork.html#torch_geometric.datasets.CityNetwork) and [***Total Influence***](https://pytorch-geometric.readthedocs.io/en/latest/modules/utils.html#torch_geometric.utils.total_influence) are now both available on the latest [**Pytorch Geometric**](https://pytorch-geometric.readthedocs.io/en/latest/index.html) (2.7.0) 🚀
+**Update:** [***CityNetwork***](https://pytorch-geometric.readthedocs.io/en/latest/generated/torch_geometric.datasets.CityNetwork.html#torch_geometric.datasets.CityNetwork) and [***Total Influence***](https://pytorch-geometric.readthedocs.io/en/latest/modules/utils.html#torch_geometric.utils.total_influence) are now both available on [**Pytorch Geometric**](https://pytorch-geometric.readthedocs.io/en/latest/index.html) (2.7.0) 🚀
 
 <div align="center">
   <img src="Figures/road_networks_visualizations_cities.jpg" alt="cities" style="width: 99%; height: 99%">
