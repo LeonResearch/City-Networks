@@ -7,7 +7,7 @@ At the same time, we introduce [***Total Influence***](https://pytorch-geometric
 **Paper: [Towards Quantifying Long-Range Interactions in Graph Machine Learning: a Large Graph Dataset and a Measurement
 ](https://arxiv.org/abs/2503.09008).**
 
-**Update:** [***CityNetwork***](https://pytorch-geometric.readthedocs.io/en/latest/generated/torch_geometric.datasets.CityNetwork.html#torch_geometric.datasets.CityNetwork) and [***Total Influence***](https://pytorch-geometric.readthedocs.io/en/latest/modules/utils.html#torch_geometric.utils.total_influence) are now both available in the latest version of [**Pytorch Geometric**](https://pytorch-geometric.readthedocs.io/en/latest/index.html) (2.7.0) 🚀
+**Update:** [***CityNetwork***](https://pytorch-geometric.readthedocs.io/en/latest/generated/torch_geometric.datasets.CityNetwork.html#torch_geometric.datasets.CityNetwork) and [***Total Influence***](https://pytorch-geometric.readthedocs.io/en/latest/modules/utils.html#torch_geometric.utils.total_influence) are now both available on the latest [**Pytorch Geometric**](https://pytorch-geometric.readthedocs.io/en/latest/index.html) (2.7.0) 🚀
 
 <div align="center">
   <img src="Figures/road_networks_visualizations_cities.jpg" alt="cities" style="width: 99%; height: 99%">
@@ -15,7 +15,7 @@ At the same time, we introduce [***Total Influence***](https://pytorch-geometric
 
 
 ## Visualization
-The nodes are labeled by an approximation of eccentricity, which measures the accessibility of a node in the network. We visualize two sub-regions in our dataset below, 
+The nodes are labeled by local eccentricity, which measures the accessibility of a node in the network. We visualize two sub-regions in our dataset below, 
 where darker color indicates lower node eccentricity (i.e. more accessible). 
 
 <div align="center">
@@ -26,21 +26,12 @@ A more detailed discussion can be found in the [paper](https://arxiv.org/abs/250
 
 
 ## Load CityNetwork as a PyG Dataset
-You can easily use the `CityNetwork` class from `citynetworks.py` to load our dataset as a PyG InMemory Dataset:
-```python
-from citynetworks import CityNetwork
-```
-You can also load [***CityNetwork***](https://pytorch-geometric.readthedocs.io/en/latest/generated/torch_geometric.datasets.CityNetwork.html?highlight=city#torch_geometric.datasets.CityNetwork) from the latest [Pytorch Geometric](https://pytorch-geometric.readthedocs.io/en/latest/index.html) (2.7.0) by installing its [**nightly version**](https://pypi.org/project/pyg-nightly/):
-```bash
-pip install pyg-nightly
-```
-or from [**master**](https://github.com/pyg-team/pytorch_geometric):
-```bash
-pip install git+https://github.com/pyg-team/pytorch_geometric.git
-```
+You can easily load [***CityNetwork***](https://pytorch-geometric.readthedocs.io/en/latest/generated/torch_geometric.datasets.CityNetwork.html?highlight=city#torch_geometric.datasets.CityNetwork) as a PyG InMemory Dataset from [Pytorch Geometric](https://pytorch-geometric.readthedocs.io/en/latest/index.html) (2.7.0) or `citynetworks.py`.
+
 **Example usage**:
 ```python
 from torch_geometric.datasets import CityNetwork
+# from citynetworks import CityNetwork
 
 dataset = CityNetwork(root="./city_networks", name="paris")
 paris_network = dataset[0]
@@ -52,7 +43,7 @@ Given a trained GNN `model` with its underlying graph `data` from PyG, the [***T
 ```python
 from influence import total_influence
 ```
-or from the latest [Pytorch Geometric](https://pytorch-geometric.readthedocs.io/en/latest/index.html) (2.7.0):
+or from [Pytorch Geometric](https://pytorch-geometric.readthedocs.io/en/latest/index.html) (2.7.0):
 ```python
 from torch_geometric.utils import total_influence
 
@@ -142,10 +133,11 @@ You can also visualize the city networks and their annotations using `Visualize_
 ## Citation
 Please cite our paper if you find the repo helpful in your work.
 ```bibTex
-@article{liang2025towards,
+@inproceedings{liang2026towards,
   title={Towards Quantifying Long-Range Interactions in Graph Machine Learning: a Large Graph Dataset and a Measurement},
-  author={Liang, Huidong and Borde, Haitz S{\'a}ez de Oc{\'a}riz and Sripathmanathan, Baskaran and Bronstein, Michael and Dong, Xiaowen},
-  journal={arXiv preprint arXiv:2503.09008},
-  year={2025}
+  author={Huidong Liang and Haitz S{\'a}ez de Oc{\'a}riz Borde and Baskaran Sripathmanathan and Michael M. Bronstein and Xiaowen Dong},
+  booktitle={The Fourteenth International Conference on Learning Representations},
+  year={2026},
+  url={https://openreview.net/forum?id=fylMiUmg39}
 }
 ```
