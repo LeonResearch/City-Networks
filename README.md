@@ -81,14 +81,14 @@ We test several standard GNNs and a Graph Transformer on our city networks with 
 In particular, we consider **#hops = #layers = [2, 4, 8, 16]** and set **hidden_size=64** for all layers. The results below suggest a clear gain in performance by increasing the number of layers on our city networks, as opposed to Cora where the models suffer from over-smoothing problems.
 
 <div align="center">
-  <img src="Figures/baseline_results.jpg" alt="labels" style="width: 99%; height: 99%">
+  <img src="Figures/baseline_results__submission.jpg" alt="labels" style="width: 99%; height: 99%">
 </div>
 
 ### 2. Per-hop Influence
 We further show the per-hop influence (measured by the Jacobian) under \#layers = 16. We can observe from the following results that the influence from distant nodes decays at a much slower rate on our city networks compared to the rate on other social networks.
 
 <div align="center">
-  <img src="Figures/influence_results.jpg" alt="labels" style="width: 99%; height: 99%">
+  <img src="Figures/Sep16_influence.jpg" alt="labels" style="width: 99%; height: 99%">
 </div>
 
 A more detailed discussion can be found in the [paper](https://arxiv.org/abs/2503.09008).
