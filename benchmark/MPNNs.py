@@ -84,7 +84,7 @@ class MPNNs(torch.nn.Module):
             elif gnn=='cheb':
                 self.local_convs.append(ChebConv(hidden_channels, hidden_channels, K=2))
             elif gnn=='gcnii':
-                self.local_convs.append(GCN2Conv(hidden_channels, alpha=0.1, theta=0.5, layer=_ + 1))
+                self.local_convs.append(GCN2Conv(hidden_channels, alpha=0.1, theta=10., layer=_ + 1))
             elif gnn=='mlp':
                 self.local_convs.append(torch.nn.Linear(hidden_channels, hidden_channels))
             elif gnn=='pna':
