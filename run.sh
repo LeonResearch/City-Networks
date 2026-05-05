@@ -7,7 +7,7 @@ run_models(){
 
     # Experiment configs
     local layers=(16)
-    local hidden_size=64
+    local hidden_size=128
     local runs=1
     local exp_name='final'
 
