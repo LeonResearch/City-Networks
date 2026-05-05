@@ -35,7 +35,7 @@ DATASETS=(
 # Given a machine with 8 GPUs and 80 cores,
 # the tasks can be executed in parallel
 for data in ${DATASETS[@]}; do
-    run_models $data gcn 0 0 10 &
+    run_models $data gcnii 0 0 10 &
     #run_models $data sage 1 10 10 &
     #run_models $data gat 2 20 10 &
     #run_models $data gcnii 3 30 10 &
